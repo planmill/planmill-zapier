@@ -26,9 +26,12 @@ Subscription functions
    post_subscribe: function(bundle) {
     // ** the idea here is to persist some data about the hook **
       var subscribe_data = JSON.parse(bundle.response.content);
+      
+ //REMOVE AFTER STATUS CODE FIXED (ONLY THIS SECTION)
         if (bundle.response.status_code === 400) { //temporary fix for PlanMill returning 400 status for expired tokens
           throw new RefreshTokenException(); // So we can refresh token
         }
+        
       return subscribe_data; // should be JSON serializable!
       },
       
@@ -52,10 +55,6 @@ Subscription functions
 Polling functions - use primarily for filters
 *******************/
 
-   new_timereport_pre_poll: function(bundle) {
-        return bundle.request;
-       },
-
 
 //REMOVE AFTER STATUS CODE FIXED
    new_timereport_post_poll: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
@@ -65,10 +64,6 @@ Polling functions - use primarily for filters
     return JSON.parse(bundle.response.content);
   },
   
-   get_projects_pre_poll: function(bundle) {      
-        return bundle.request;
-       },
- 
  //REMOVE AFTER STATUS CODE FIXED
    get_projects_post_poll: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
         if (bundle.response.status_code === 400) {
@@ -77,10 +72,6 @@ Polling functions - use primarily for filters
     return JSON.parse(bundle.response.content);
   },
   
-//    new_contact_pre_poll: function(bundle) {
-//        return bundle.request;
-//       },
-
 //REMOVE AFTER STATUS CODE FIXED
     new_contact_post_poll: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
         if (bundle.response.status_code === 400) {
@@ -89,10 +80,6 @@ Polling functions - use primarily for filters
     return JSON.parse(bundle.response.content);
   },
        
-     
-    new_user_pre_poll: function(bundle) {
-        return bundle.request;
-       },
  
  //REMOVE AFTER STATUS CODE FIXED
    new_user_post_poll: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
@@ -102,9 +89,6 @@ Polling functions - use primarily for filters
     return JSON.parse(bundle.response.content);
   },
 
-   me_pre_poll: function(bundle) {
-        return bundle.request;
-       },
 
 //REMOVE AFTER STATUS CODE FIXED
    me_post_poll: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
@@ -119,10 +103,6 @@ Polling functions - use primarily for filters
 Search functions
 *******************/
 
-    find_account_pre_search: function(bundle) {       
-        return bundle.request;
-       },
- 
  //REMOVE AFTER STATUS CODE FIXED
    find_account_post_search: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
         if (bundle.response.status_code === 400) {
@@ -131,11 +111,6 @@ Search functions
     return JSON.parse(bundle.response.content);
   },
 
-//REMOVE AFTER STATUS CODE FIXED
-    find_account_pre_custom_search_fields: function(bundle) {      
-        return bundle.request;
-       },
- 
  //REMOVE AFTER STATUS CODE FIXED
    find_account_post_custom_search_fields: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
         if (bundle.response.status_code === 400) {
@@ -144,10 +119,6 @@ Search functions
     return JSON.parse(bundle.response.content);
   },
        
-    find_project_pre_search: function(bundle) {
-        return bundle.request;
-       },
- 
  //REMOVE AFTER STATUS CODE FIXED
     find_project_post_search: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
         if (bundle.response.status_code === 400) {
@@ -156,10 +127,6 @@ Search functions
     return JSON.parse(bundle.response.content);
   },
        
-    find_project_pre_custom_search_fields: function(bundle) {
-        return bundle.request;
-       },
-
 //REMOVE AFTER STATUS CODE FIXED
    find_project_post_custom_search_fields: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
         if (bundle.response.status_code === 400) {
@@ -167,10 +134,6 @@ Search functions
     }
     return JSON.parse(bundle.response.content);
   },
-
-    find_user_pre_search: function(bundle) {
-        return bundle.request;
-       },
 
 //REMOVE AFTER STATUS CODE FIXED
    find_user_post_search: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
@@ -180,10 +143,6 @@ Search functions
     return JSON.parse(bundle.response.content);
   },
 
-
-    find_user_pre_custom_search_fields: function(bundle) {       
-        return bundle.request;
-       },
 
 //REMOVE AFTER STATUS CODE FIXED
    find_user_post_custom_search_fields: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
@@ -245,10 +204,6 @@ Action functions
     return JSON.parse(bundle.response.content);
   },
     
-   create_prospect_pre_custom_action_fields: function(bundle) {
-        return bundle.request;
-  },
-
 //REMOVE AFTER STATUS CODE FIXED
    create_prospect_post_custom_action_fields: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
         if (bundle.response.status_code === 400) {
@@ -257,10 +212,6 @@ Action functions
     return JSON.parse(bundle.response.content);
   },
        
-  create_timereport_pre_custom_action_fields: function(bundle) {
-        return bundle.request;
-  },
-
 //REMOVE AFTER STATUS CODE FIXED
   create_timereport_post_custom_action_fields: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
         if (bundle.response.status_code === 400) {
@@ -296,10 +247,6 @@ Trigger functions
         return timereporthook_data;
   },
   
-  get_projects_pre_custom_trigger_fields: function(bundle) {       
-        return bundle.request;
-   },
-
 //REMOVE AFTER STATUS CODE FIXED
   get_projects_post_custom_trigger_fields: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
         if (bundle.response.status_code === 400) {
@@ -309,10 +256,6 @@ Trigger functions
   },
     
    
-  new_contact_pre_custom_trigger_fields: function(bundle) {
-        return bundle.request;
-   },
-
 //REMOVE AFTER STATUS CODE FIXED
   new_contact_post_custom_trigger_fields: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
         if (bundle.response.status_code === 400) {
@@ -321,10 +264,6 @@ Trigger functions
     return JSON.parse(bundle.response.content);
   },
 
-
-  new_user_pre_custom_trigger_fields: function(bundle) {
-        return bundle.request;
-   },
 
 //REMOVE AFTER STATUS CODE FIXED
   new_user_post_custom_trigger_fields: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
