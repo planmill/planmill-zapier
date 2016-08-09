@@ -25,13 +25,7 @@ Subscription functions
    
    post_subscribe: function(bundle) {
     // ** the idea here is to persist some data about the hook **
-      var subscribe_data = JSON.parse(bundle.response.content);
-      
- //REMOVE AFTER STATUS CODE FIXED (ONLY THIS SECTION)
-        if (bundle.response.status_code === 400) { //temporary fix for PlanMill returning 400 status for expired tokens
-          throw new RefreshTokenException(); // So we can refresh token
-        }
-        
+      var subscribe_data = JSON.parse(bundle.response.content);       
       return subscribe_data; // should be JSON serializable!
       },
       
@@ -42,116 +36,16 @@ Subscription functions
         return bundle.request;
   },
 
-//REMOVE AFTER STATUS CODE FIXED
-
-   post_unsubscribe: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
-        if (bundle.response.status_code === 400) {
-          throw new RefreshTokenException(); // So we can refresh token
-    }
-    return JSON.parse(bundle.response.content);
-  },       
 
 /******************
 Polling functions - use primarily for filters
 *******************/
 
 
-//REMOVE AFTER STATUS CODE FIXED
-   new_timereport_post_poll: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
-        if (bundle.response.status_code === 400) {
-          throw new RefreshTokenException(); // So we can refresh token
-    }
-    return JSON.parse(bundle.response.content);
-  },
-  
- //REMOVE AFTER STATUS CODE FIXED
-   get_projects_post_poll: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
-        if (bundle.response.status_code === 400) {
-          throw new RefreshTokenException(); // So we can refresh token
-    }
-    return JSON.parse(bundle.response.content);
-  },
-  
-//REMOVE AFTER STATUS CODE FIXED
-    new_contact_post_poll: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
-        if (bundle.response.status_code === 400) {
-          throw new RefreshTokenException(); // So we can refresh token
-    }
-    return JSON.parse(bundle.response.content);
-  },
-       
- 
- //REMOVE AFTER STATUS CODE FIXED
-   new_user_post_poll: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
-        if (bundle.response.status_code === 400) {
-          throw new RefreshTokenException(); // So we can refresh token
-    }
-    return JSON.parse(bundle.response.content);
-  },
-
-
-//REMOVE AFTER STATUS CODE FIXED
-   me_post_poll: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
-        if (bundle.response.status_code === 400) {
-          throw new RefreshTokenException(); // So we can refresh token
-    }
-    return JSON.parse(bundle.response.content);
-  },
-
-
 /******************
 Search functions
 *******************/
 
- //REMOVE AFTER STATUS CODE FIXED
-   find_account_post_search: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
-        if (bundle.response.status_code === 400) {
-          throw new RefreshTokenException(); // So we can refresh token
-    }
-    return JSON.parse(bundle.response.content);
-  },
-
- //REMOVE AFTER STATUS CODE FIXED
-   find_account_post_custom_search_fields: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
-        if (bundle.response.status_code === 400) {
-          throw new RefreshTokenException(); // So we can refresh token
-    }
-    return JSON.parse(bundle.response.content);
-  },
-       
- //REMOVE AFTER STATUS CODE FIXED
-    find_project_post_search: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
-        if (bundle.response.status_code === 400) {
-          throw new RefreshTokenException(); // So we can refresh token
-    }
-    return JSON.parse(bundle.response.content);
-  },
-       
-//REMOVE AFTER STATUS CODE FIXED
-   find_project_post_custom_search_fields: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
-        if (bundle.response.status_code === 400) {
-          throw new RefreshTokenException(); // So we can refresh token
-    }
-    return JSON.parse(bundle.response.content);
-  },
-
-//REMOVE AFTER STATUS CODE FIXED
-   find_user_post_search: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
-        if (bundle.response.status_code === 400) {
-          throw new RefreshTokenException(); // So we can refresh token
-    }
-    return JSON.parse(bundle.response.content);
-  },
-
-
-//REMOVE AFTER STATUS CODE FIXED
-   find_user_post_custom_search_fields: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
-        if (bundle.response.status_code === 400) {
-          throw new RefreshTokenException(); // So we can refresh token
-    }
-    return JSON.parse(bundle.response.content);
-  },
-     
 
 /******************
 Action functions
@@ -160,24 +54,11 @@ Action functions
     create_timereport_pre_write: function(bundle) {
         var outbound = JSON.parse(bundle.request.data);
         outbound.start = formatLocalDate(outbound.start);
-        if(outbound.person !== null){
-           outbound.person = outbound.person;
-        } else {
-           outbound.person = bundle.auth_fields.username;
-        }
         outbound.comment = outbound.comment.substring(0, 512);
         bundle.request.data = JSON.stringify(outbound);
         return bundle.request;       
     },
-
-//REMOVE AFTER STATUS CODE FIXED
-   create_timereport_post_write: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
-        if (bundle.response.status_code === 400) {
-          throw new RefreshTokenException(); // So we can refresh token
-    }
-    return JSON.parse(bundle.response.content);
-  },
-    
+   
     create_prospect_pre_write: function(bundle) {
         var outbound = bundle.request.data;
         var account = getResourceByName(bundle, 'accounts', outbound.account);
@@ -196,29 +77,6 @@ Action functions
         return bundle.request;       
     }, 
 
-//REMOVE AFTER STATUS CODE FIXED
-   create_prospect_post_write: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
-        if (bundle.response.status_code === 400) {
-          throw new RefreshTokenException(); // So we can refresh token
-    }
-    return JSON.parse(bundle.response.content);
-  },
-    
-//REMOVE AFTER STATUS CODE FIXED
-   create_prospect_post_custom_action_fields: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
-        if (bundle.response.status_code === 400) {
-          throw new RefreshTokenException(); // So we can refresh token
-    }
-    return JSON.parse(bundle.response.content);
-  },
-       
-//REMOVE AFTER STATUS CODE FIXED
-  create_timereport_post_custom_action_fields: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
-        if (bundle.response.status_code === 400) {
-          throw new RefreshTokenException(); // So we can refresh token
-    }
-    return JSON.parse(bundle.response.content);
-  },
     
 /******************
 Trigger functions
@@ -245,34 +103,8 @@ Trigger functions
         timereporthook_data.link = 'https://online.planmill.com/'+bundle.auth_fields.instance + '/index.jsp?category=TimeSheet.Timer.Single%20report%20no%20timer&noreturnlink=true&Id='+timereport_data.id;
  
         return timereporthook_data;
-  },
-  
-//REMOVE AFTER STATUS CODE FIXED
-  get_projects_post_custom_trigger_fields: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
-        if (bundle.response.status_code === 400) {
-          throw new RefreshTokenException(); // So we can refresh token
-    }
-    return JSON.parse(bundle.response.content);
-  },
-    
-   
-//REMOVE AFTER STATUS CODE FIXED
-  new_contact_post_custom_trigger_fields: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
-        if (bundle.response.status_code === 400) {
-          throw new RefreshTokenException(); // So we can refresh token
-    }
-    return JSON.parse(bundle.response.content);
-  },
-
-
-//REMOVE AFTER STATUS CODE FIXED
-  new_user_post_custom_trigger_fields: function(bundle) { //temporary fix for PlanMill returning 400 status for expired tokens
-        if (bundle.response.status_code === 400) {
-          throw new RefreshTokenException(); // So we can refresh token
-    }
-    return JSON.parse(bundle.response.content);
   }
-
+  
   
 };
 
@@ -295,6 +127,9 @@ function getResource(bundle, resource, id, project_id) {
           data: null
           }; 
         var response = z.request(request);
+        if (response.status_code === 400) {
+          throw new RefreshTokenException(); // So we can refresh token
+        }
         var data = JSON.parse(response.content);
     
     return data;
@@ -318,6 +153,9 @@ function getResourceByName(bundle, resource, searchkey_data) {
           data: null
           };
         var response = z.request(request);
+        if (response.status_code === 400) {
+          throw new RefreshTokenException(); // So we can refresh token
+        }
         var data = JSON.parse(response.content);
     
     return data;
@@ -339,7 +177,9 @@ function postNewProspectAccount(bundle, account_name, account_type, account_owne
             }
           };
         var response = z.request(request);
-        console.log(response);
+            if (response.status_code === 400) {
+              throw new RefreshTokenException(); // So we can refresh token
+            }       
         var data = JSON.parse(response.content);
 
     return data;
